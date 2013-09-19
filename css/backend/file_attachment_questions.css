@@ -1,0 +1,4 @@
+#file_attachment input[name=tu_file_attachment_amount] {
+  max-width: 70px;
+  margin-left: 5px;
+}
