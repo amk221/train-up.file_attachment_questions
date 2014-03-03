@@ -4,7 +4,7 @@ Plugin Name: Train-up! File Attachment questions
 Plugin URI: http://wptrainup.co.uk/
 Description: Trainees are required to upload one or more files
 Author: @amk221
-Version: 0.0.1
+Version: 0.0.2
 License: GPL2
 */
 
@@ -51,7 +51,6 @@ class File_attachment_questions_addon {
    */
   public function _register_assets() {
     wp_register_style('tu_file_attachment_questions', "{$this->url}css/backend/file_attachment_questions.css");
-    wp_register_script('tu_frontend_file_attachment_questions', "{$this->url}js/frontend/file_attachment_questions.js");
     wp_register_style('tu_frontend_file_attachment_questions', "{$this->url}css/frontend/file_attachment_questions.css");
   }
 
