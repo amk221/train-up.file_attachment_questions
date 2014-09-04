@@ -4,7 +4,7 @@ Plugin Name: Train-up! File Attachment questions
 Plugin URI: http://wptrainup.co.uk/
 Description: Trainees are required to upload one or more files
 Author: @amk221
-Version: 0.0.2
+Version: 0.0.3
 License: GPL2
 */
 
@@ -17,9 +17,9 @@ class File_attachment_questions_addon {
   /**
    * __construct
    *
-   * Listen to the filters that the Train-Up! plugin provides, and latch on, 
+   * Listen to the filters that the Train-Up! plugin provides, and latch on,
    * inserting the new functionality where needed.
-   * 
+   *
    * @access public
    */
   public function __construct() {
@@ -46,7 +46,7 @@ class File_attachment_questions_addon {
    * - Fired on `init`
    * - Register the scripts and styles for the front end backend file attachment
    *   questions add-on.
-   * 
+   *
    * @access public
    */
   public function _register_assets() {
@@ -59,7 +59,7 @@ class File_attachment_questions_addon {
    *
    * - Fired when styles and scripts are enqueued in the backend
    * - Enqueue the styles for the file-attachments meta box
-   * 
+   *
    * @access public
    */
   public function _add_backend_assets() {
@@ -71,7 +71,7 @@ class File_attachment_questions_addon {
    *
    * - Fired when styles and scripts are enqueued on the frontend
    * - Enqueue scripts and styles for the file attachments quesiton type
-   * 
+   *
    * @access public
    */
   public function _add_frontend_assets() {
@@ -84,9 +84,9 @@ class File_attachment_questions_addon {
   /**
    * _add_type
    *
-   * - Callback for when retrieving the hash of question types. 
+   * - Callback for when retrieving the hash of question types.
    * - Insert our new 'file_attachment' question type.
-   * 
+   *
    * @param mixed $types
    *
    * @access public
@@ -104,7 +104,7 @@ class File_attachment_questions_addon {
    *
    * - Callback for when the meta boxes are defined for Question admin screens
    * - Define one for our custom Question type: file_attachment
-   * 
+   *
    * @param mixed $meta_boxes
    *
    * @access public
@@ -127,7 +127,7 @@ class File_attachment_questions_addon {
    * - Callback function for an action that is fired when the 'file_attachment'
    *   meta box is to be rendered.
    * - Echo out the view that lets the administrator configure this Question
-   * 
+   *
    * @access public
    */
   public function _meta_box() {
@@ -144,7 +144,7 @@ class File_attachment_questions_addon {
    *   at this point we don't need to set the tu_answers post meta unlike most
    *   other question types.
    * - Save how many files are allowed to be uploaded
-   * 
+   *
    * @param mixed $question
    *
    * @access public
@@ -160,7 +160,7 @@ class File_attachment_questions_addon {
    *
    * - Fired when the file_attachment-style question is shown
    * - Return the view that allows Trainees to upload their file attachments.
-   * 
+   *
    * @param mixed $content
    *
    * @access public
@@ -181,7 +181,7 @@ class File_attachment_questions_addon {
    * _save_answer
    *
    * - Fired when the user saves their answer to any question (not via AJAX)
-   * 
+   *
    * @param object $question The Question that the answer is for.
    * @param string $answer The default answer string from the submitted form
    *
@@ -198,7 +198,7 @@ class File_attachment_questions_addon {
    * _save_answer_ajax
    *
    * - Fired when the user saves their answer to any question via AJAX
-   * 
+   *
    * @param object $question The Question that the answer is for.
    * @param string $answer The default answer string from the submitted form
    * @param object $form A hash of any other form data
@@ -219,7 +219,7 @@ class File_attachment_questions_addon {
    *   or the 'normal' method.
    * - Make sure the Question is one that accepts file attachments.
    * - Upload the file using WordPress's API, then move it to our location.
-   * 
+   *
    * @param object $question The Question that the answer is for.
    * @param array $files An array of uploaded files
    *
@@ -250,7 +250,7 @@ class File_attachment_questions_addon {
 
     foreach ($files['name'] as $i => $file_name) {
       if (!$file_name) continue;
-      
+
       $file = array();
 
       foreach (array_keys($files) as $key) {
@@ -281,7 +281,8 @@ class File_attachment_questions_addon {
    * - Listen out for requests to delete a specific file.
    * - The deletion path contains the user ID, so only the logged in user
    *   can delete their own files.
-   * 
+   * - Redirect back to the question again to remove the query string
+   *
    * @access public
    */
   public function _handle_deletions() {
@@ -307,6 +308,8 @@ class File_attachment_questions_addon {
     if ($file_name) {
       $success = sprintf(__('%1$s deleted', 'trainup'), $file_name);
       tu()->message->set_flash('success', $success);
+
+      tu()->question->go_to();
     }
   }
 
@@ -317,7 +320,7 @@ class File_attachment_questions_addon {
    * - Return null because this question type cannot be considered true or
    *   false. It has to be judged by a moderator and the percentage score
    *   manually set.
-   * 
+   *
    * @param mixed $correct Whether or not the answer is correct
    * @param mixed $users_answer The user's attempted answer
    * @param mixed $question The question this answer is for
@@ -333,6 +336,6 @@ class File_attachment_questions_addon {
 }
 
 
-add_action('plugins_loaded', function() { 
+add_action('plugins_loaded', function() {
   new File_attachment_questions_addon;
 });
