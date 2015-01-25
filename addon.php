@@ -1,9 +1,7 @@
 <?php
 /*
 Plugin Name: Train-up! File Attachment questions
-Plugin URI: http://wptrainup.co.uk/
 Description: Trainees are required to upload one or more files
-Author: @amk221
 Version: 0.0.3
 License: GPL2
 */
