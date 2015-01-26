@@ -21,6 +21,6 @@ Marks cannot be awarded on a per-question basis, so the most common use-case is 
 
 ### Why?
 
-The [Train-Up!](wptrainup.co.uk) e-learning plugin for WordPress adds a training section to any WordPress website. 
+The [Train-Up!](https://github.com/amk221/train-up) e-learning plugin for WordPress adds a training section to any WordPress website.
 
 The plugin itself comes with Multiple Choice and Single-answer questions built-in. Other question types such as this one can be added on separately.
